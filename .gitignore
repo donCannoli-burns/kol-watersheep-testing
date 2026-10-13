@@ -2,3 +2,7 @@ node_modules/
 .DS_Store
 *.log
 .reconstructed/
+.foundry/
+.venv-foundry/
+__pycache__/
+*.pyc
