@@ -1,0 +1,27 @@
+{
+  "worldId": "foundry-synthetic-001",
+  "player": {
+    "hp": 70,
+    "maxHp": 100,
+    "mp": 42,
+    "maxMp": 80,
+    "adventures": 37,
+    "meat": 4500,
+    "level": 8
+  },
+  "properties": {
+    "questL03Rat": "step1",
+    "_deckCardsDrawn": "0"
+  },
+  "inventory": {
+    "seal tooth": 1,
+    "chewing gum on a string": 2
+  },
+  "effects": {},
+  "candidates": [
+    "continue current quest task",
+    "acquire required item",
+    "level",
+    "wait"
+  ]
+}
