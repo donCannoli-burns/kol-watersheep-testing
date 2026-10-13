@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from .context import load_context_planes
 from .contracts import FoundryTransition, WorldState
 from .pymafia_host import PyMafiaHost, RuntimeConfig
 from .store import FoundryStore
@@ -20,6 +21,8 @@ class SmokeRequest:
     watergoat_url: str
     watergoat_timeout: float
     query_student: bool
+    goblin_runtime: Path | None = None
+    html_matrix_root: Path | None = None
 
 
 class FoundryService:
@@ -28,6 +31,8 @@ class FoundryService:
     OpenCode-inspired boundary:
       * Store owns durable sessions/runs/events.
       * PyMafiaHost owns the KoLmafia execution runtime.
+      * Goblin Docs is optional KoLmafia-local runtime context.
+      * HTML Matrix is optional retrieval/planning reference context.
       * WaterGoat is an advisory sidecar.
       * The service composes them but never grants live action authority.
     """
@@ -50,6 +55,12 @@ class FoundryService:
         )
 
         try:
+            context = load_context_planes(
+                request.goblin_runtime,
+                request.html_matrix_root,
+            )
+            self.store.event(run.run_id, "context.loaded", context)
+
             host = PyMafiaHost(
                 RuntimeConfig(
                     revision=request.revision,
@@ -88,7 +99,7 @@ class FoundryService:
                 self.store.event(run.run_id, "student.queried", student)
 
             transition = FoundryTransition(
-                schema="kol-foundry/transition-v0.1",
+                schema="kol-foundry/transition-v0.2",
                 experiment_id=request.experiment_id,
                 world_sha256=world_hash,
                 runtime={
@@ -98,6 +109,7 @@ class FoundryService:
                     "mode": "NO_AUTH_SESSION",
                     "networkGuard": "NO_AUTH_SESSION_ONLY",
                 },
+                context=context,
                 state=frame,
                 runtime_probe=probe,
                 student=student,
@@ -110,6 +122,7 @@ class FoundryService:
                 authority={
                     "studentMayExecute": False,
                     "teacherMayExecute": False,
+                    "contextMayExecute": False,
                     "liveFallbackAllowed": False,
                     "authenticatedSessionAllowed": False,
                 },
