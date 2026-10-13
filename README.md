@@ -10,6 +10,10 @@ This repository is intentionally narrow. It does **not** emulate all of Kingdom 
 
 > **Experimental branch:** `experiment/interaction-curriculum-v2` adds a new balanced KoL automation-interaction curriculum inspired by behavioral patterns in autoscend and Loopstar. It adds **56 core / 112 full** deterministic scenarios across seven control outcomes without modifying the frozen baseline. See [`docs/INTERACTION_CURRICULUM.md`](docs/INTERACTION_CURRICULUM.md).
 
+> **Interaction results now published:** the completed 56-case core, 112-case full, 16-case state slice, and 21-case control slice are summarized in [`docs/INTERACTION_RESULTS.md`](docs/INTERACTION_RESULTS.md). The full suite reached **63.39%** control-action accuracy with a stable signature: proceed 16/16, reroute 16/16, need_context 15/16, reconcile 14/16, wait 8/16, restore 2/16, stop 0/16.
+>
+> **Next suite:** [`KOL-WS-MINPAIR-001`](docs/MINPAIR-001.md) contains **250 deterministic one-fact pairs / 500 model observations** to test directional probability movement at the restore, wait, reconcile, need-context, and reroute→stop boundaries.
+
 ## Why this exists
 
 [WaterSheep][watersheep] describes itself as a decision model that returns calibrated answers for yes/no, choice, score, and multi-label questions. This repo asks a more domain-specific question: **what happens when that kind of small local model is used as a System-1-style assessor over KoL/KoLmafia-shaped evidence?** [1]
