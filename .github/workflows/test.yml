@@ -16,3 +16,13 @@ jobs:
       - run: bash -n run-kol-mock-lab
       - run: npm test
       - run: npm run smoke
+
+  foundry-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: bash -n run-kol-foundry
+      - run: PYTHONPATH=foundry/src python -m unittest discover -s foundry/tests -v
