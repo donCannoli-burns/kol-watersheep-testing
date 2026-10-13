@@ -6,6 +6,7 @@ import {
   MINPAIR_QUESTIONS,
   createMinPair,
   minPairObservations,
+  minPairModelObservation,
 } from "../src/minpair-scenarios.ts";
 
 const TARGETS = ["restore", "wait", "reconcile", "need_context", "stop"];
@@ -67,4 +68,41 @@ test("MINPAIR questions are advisory only", () => {
   assert.ok(!text.includes("commitpermit"));
   assert.ok(!text.includes("grant permission"));
   assert.ok(!text.includes("execute this"));
+});
+
+
+function visibleDiffPaths(a: unknown, b: unknown, prefix = ""): string[] {
+  if (Object.is(a, b)) return [];
+  if (Array.isArray(a) || Array.isArray(b)) {
+    if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) return [prefix || "<root>"];
+    return a.flatMap((value, index) =>
+      visibleDiffPaths(value, b[index], `${prefix}[${index}]`)
+    );
+  }
+  if (
+    a === null || b === null ||
+    typeof a !== "object" || typeof b !== "object"
+  ) {
+    return [prefix || "<root>"];
+  }
+  const ao = a as Record<string, unknown>;
+  const bo = b as Record<string, unknown>;
+  const keys = [...new Set([...Object.keys(ao), ...Object.keys(bo)])].sort();
+  return keys.flatMap((key) =>
+    visibleDiffPaths(ao[key], bo[key], prefix ? `${prefix}.${key}` : key)
+  );
+}
+
+test("model-visible minimal pairs differ by exactly one factual field", () => {
+  for (const id of MINPAIR_PAIR_IDS) {
+    const def = MINPAIR_DEFINITIONS[id];
+    const pair = minPairObservations(id);
+    const base = minPairModelObservation(pair.base);
+    const variant = minPairModelObservation(pair.variant);
+    assert.equal(base.stateDigest, "MINPAIR_REDACTED");
+    assert.equal(variant.stateDigest, "MINPAIR_REDACTED");
+    assert.equal(base.observationId, "MINPAIR_REDACTED");
+    assert.equal(variant.observationId, "MINPAIR_REDACTED");
+    assert.deepEqual(visibleDiffPaths(base, variant), [def.changedPath], id);
+  }
 });
