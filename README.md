@@ -1,3 +1,7 @@
+# Experiment branch: don_combo shadow-route test
+
+> This branch preserves a **don_combo-specific WaterSheep experiment summary** while keeping `main` focused on the generic KoL/WaterSheep test harness. See [`experiments/don-combo-shadow-20261013/README.md`](experiments/don-combo-shadow-20261013/README.md) for the frozen result summary and provenance.
+
 # KoL × WaterSheep Testing
 
 A small, deterministic **KoL/KoLmafia-shaped mock environment, recorder, and evaluation harness** for testing [WaterSheep][watersheep] locally.

@@ -1,0 +1,125 @@
+{
+  "schema": "kol-watersheep/don-combo-shadow-summary-v1",
+  "experiment_id": "DON-COMBO-WS-SHADOW-20261013",
+  "branch": "experiment/don-combo-shadow-20261013",
+  "source": {
+    "filename": "don_combo-shadow-2026-10-13T13-03-48-228Z-a50e606ddf0f(1).html",
+    "sha256": "8a11414f1535b61e2b5193b0a20d9b07c157b52226fed0a5cc65386b5cb61348",
+    "snapshot_schema": "don-combo-html-snapshot/v0.6",
+    "runtime_schema": "don-combo-matrix-runtime/v0.8-ts",
+    "runtime_generated_at": "2026-10-13T13:03:48.228Z",
+    "snapshot_exported_at": "2026-10-13T13:04:08.391Z"
+  },
+  "authority": {
+    "mode": "shadow-only",
+    "authority": "none",
+    "execution": "none"
+  },
+  "run_control": {
+    "requested_combs": 46,
+    "completed_combs": 46,
+    "status": "completed",
+    "end_reason": "requested_combs_completed",
+    "interrupt_consumed": false,
+    "ml_events_before": 922,
+    "ml_events_after": 968,
+    "ml_event_delta": 46,
+    "ml_trace_span_complete": true,
+    "baseline_verification": true
+  },
+  "combo_evidence": {
+    "rare_tile_records": 1001,
+    "unique_rare_fronts": 846,
+    "false_rare_records": 115,
+    "fronts_recorded": 823,
+    "baseline_minute": 7884,
+    "baseline_row": 8,
+    "baseline_column": 2
+  },
+  "waterSheep": {
+    "endpoint": "http://127.0.0.1:8766/v1/kolmafia",
+    "status": "offline",
+    "error": "Empty JSON string",
+    "calibration": "UNVALIDATED_FOR_KOL_BEACH",
+    "options": [
+      "rare",
+      "whale",
+      "sandcastle",
+      "twinkle",
+      "regular",
+      "scratched"
+    ],
+    "input_policy": "Known rare coordinates/counts, Combo target identity/order, candidate source labels, baseline membership, and Combo-derived outcome labels are withheld."
+  },
+  "frozen_comparison": {
+    "pool_size": 0,
+    "baseline_rank": null,
+    "shadow_top_minute": null,
+    "agreement": false,
+    "evidence_maturity": "COLD_START",
+    "ranking_separation": "LOW",
+    "ui_selected_candidate_minute": 210,
+    "selected_candidate_interpretation": "Evidence inspector selection only; not treated as a valid ranked shadow winner because the machine-readable comparison pool is empty."
+  },
+  "ml_lab": {
+    "events_total": 968,
+    "events_in_artifact": 500,
+    "predicted_events": 500,
+    "untraced_events": 0,
+    "mean_prediction_latency_ms": 1095.85,
+    "snapshots_in_artifact": 205,
+    "outcome_counts": {
+      "rough_fallback": 405,
+      "twinkle_fallback": 92,
+      "rare_target": 3
+    }
+  },
+  "rare_target_examples": [
+    {
+      "minute": 210,
+      "outcome": "rare_target",
+      "items": [
+        "hamethyst",
+        "baconstone",
+        "porquoise",
+        "cursed swash buckle"
+      ],
+      "rare_mass": 0.0365,
+      "twinkle_mass": 0.3818,
+      "model_utility": 0.338172,
+      "policy_utility": 0.418172,
+      "latency_ms": 928
+    },
+    {
+      "minute": 1105,
+      "outcome": "rare_target",
+      "items": [
+        "piece of driftwood"
+      ],
+      "rare_mass": 0.037896210378962104,
+      "twinkle_mass": 0.3538646135386461,
+      "model_utility": 0.33908,
+      "policy_utility": 0.41908,
+      "latency_ms": 1438
+    },
+    {
+      "minute": 5706,
+      "outcome": "rare_target",
+      "items": [
+        "hamethyst",
+        "baconstone",
+        "porquoise",
+        "cursed tricorn hat"
+      ],
+      "rare_mass": 0.0383,
+      "twinkle_mass": 0.3415,
+      "model_utility": 0.33307,
+      "policy_utility": 0.369639,
+      "latency_ms": 938
+    }
+  ],
+  "conclusion": {
+    "route_comparison": "INCONCLUSIVE_NEGATIVE",
+    "summary": "The bounded run and trace instrumentation succeeded, but the frozen comparison had an empty candidate pool with WaterSheep offline. It does not establish that dynamic reassessment beat Combo. The three rare-target trace examples also do not show strong raw rare-score separation."
+  }
+}
