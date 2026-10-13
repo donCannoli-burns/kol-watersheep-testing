@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PYTHON_BIN="${PYTHON_BIN:-python3.11}"
+MODE="${1:-help}"
+shift || true
+
+if ! command -v "$PYTHON_BIN" >/dev/null 2>&1; then
+  echo "BLOCKED: Python 3.11 is required (override with PYTHON_BIN)." >&2
+  exit 2
+fi
+
+export PYTHONPATH="$HERE/foundry/src${PYTHONPATH:+:$PYTHONPATH}"
+
+case "$MODE" in
+  test)
+    exec "$PYTHON_BIN" -m unittest discover -s "$HERE/foundry/tests" -v
+    ;;
+  smoke)
+    exec "$PYTHON_BIN" -m kol_foundry smoke "$@"
+    ;;
+  export-session)
+    exec "$PYTHON_BIN" -m kol_foundry export-session "$@"
+    ;;
+  help|-h|--help)
+    cat <<'EOF'
+usage: ./run-kol-foundry <mode> [args]
+
+modes:
+  test             run contract/store tests (no JVM required)
+  smoke            load one synthetic world into pinned pymafia/KoLmafia
+  export-session   export durable session/run/event evidence
+EOF
+    ;;
+  *)
+    echo "usage: $0 [test|smoke|export-session]" >&2
+    exit 2
+    ;;
+esac
