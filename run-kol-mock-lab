@@ -20,9 +20,10 @@ case "$MODE" in
   watersheep-baseline-analysis) exec npm run watersheep-baseline-analysis --silent ;;
   watersheep-order) exec npm run watersheep-order --silent ;;
   watersheep-repeat) exec npm run watersheep-repeat --silent ;;
+  watersheep-interactions) exec npm run watersheep-interactions --silent ;;
   start) exec npm run start --silent ;;
   *)
-    echo "usage: $0 [test|smoke|watersheep-baseline|watersheep-baseline-analysis|watersheep-order|watersheep-repeat|start]" >&2
+    echo "usage: $0 [test|smoke|watersheep-baseline|watersheep-baseline-analysis|watersheep-order|watersheep-repeat|watersheep-interactions|start]" >&2
     exit 2
     ;;
 esac

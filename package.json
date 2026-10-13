@@ -11,7 +11,8 @@
     "watersheep-baseline": "tsx src/watersheep-baseline.ts",
     "watersheep-baseline-analysis": "tsx src/watersheep-baseline-analysis.ts",
     "watersheep-order": "tsx src/watersheep-order.ts",
-    "watersheep-repeat": "tsx src/watersheep-repeat.ts"
+    "watersheep-repeat": "tsx src/watersheep-repeat.ts",
+    "watersheep-interactions": "tsx src/watersheep-interactions.ts"
   },
   "devDependencies": {
     "tsx": "^4.0.0"
