@@ -1,0 +1,21 @@
+{
+  "name": "kol-mock-runtime-lab",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "description": "Deterministic mock KoL/KoLmafia runtime for KOL-WaterSheep routing experiments.",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json --noCheck",
+    "start": "node dist/src/server.js",
+    "test": "node --test dist/tests/*.test.js",
+    "smoke": "node dist/src/smoke.js",
+    "watersheep-smoke": "node dist/src/watersheep-smoke.js",
+    "watersheep-baseline": "node dist/src/watersheep-baseline.js",
+    "watersheep-baseline-analysis": "node dist/src/watersheep-baseline-analysis.js",
+    "watersheep-order": "node dist/src/watersheep-order.js",
+    "watersheep-repeat": "node dist/src/watersheep-repeat.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,17 @@
+services:
+  kol-mock-runtime:
+    build: .
+    ports:
+      - "10425:10425"
+    environment:
+      HOST: 0.0.0.0
+      PORT: 10425
+      SCENARIO: hidden-temple
+      SEED: 7
+      RECORDER_PATH: /data/parity-recorder.jsonl
+      # Optional: point this at a separately running KOL-WaterSheep server.
+      WATERSHEEP_URL: ${WATERSHEEP_URL:-http://host.docker.internal:8766}
+    volumes:
+      - ./data:/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
