@@ -1,0 +1,40 @@
+{
+  "schema": "kol-watersheep/repeat-report-v1",
+  "evalId": "KOL-WS-REPEAT-001",
+  "status": "COMPLETE",
+  "generatedAt": "2026-10-13T16:15:01.611Z",
+  "endpoint": "http://127.0.0.1:8766/v1/decisions",
+  "seed": 20261011,
+  "selectionHash": "034155947823bb2ac5dd1e2778ffff309aae4f8e93ab760969f924f0f7c77982",
+  "selection": {
+    "scenarioVariants": ["contradiction"],
+    "families": ["quest","effects","inventory","equipment","combat","runtime","script","economy","social","general"],
+    "scenarioIds": ["baseline-0006","baseline-0016","baseline-0026","baseline-0036","baseline-0046","baseline-0056","baseline-0066","baseline-0076","baseline-0086","baseline-0096"],
+    "repeats": 5
+  },
+  "summary": {
+    "totalRows": 50,
+    "successfulRows": 50,
+    "failedRows": 0,
+    "selectedScenarios": 10,
+    "repeats": 5,
+    "completeScenarios": 10,
+    "exactScenarioRate": 1,
+    "exactRepeatComparisonRate": 1,
+    "maxNumericDrift": 0,
+    "meanLatencyMs": 8959,
+    "scenarios": [
+      {"scenarioId":"baseline-0006","family":"quest","scenarioVariant":"contradiction","completedRepeats":5,"expectedRepeats":5,"exactAcrossCompleted":true,"exactComparisonRate":1,"maxNumericDrift":0,"meanLatencyMs":9811.6},
+      {"scenarioId":"baseline-0016","family":"effects","scenarioVariant":"contradiction","completedRepeats":5,"expectedRepeats":5,"exactAcrossCompleted":true,"exactComparisonRate":1,"maxNumericDrift":0,"meanLatencyMs":6756.7},
+      {"scenarioId":"baseline-0026","family":"inventory","scenarioVariant":"contradiction","completedRepeats":5,"expectedRepeats":5,"exactAcrossCompleted":true,"exactComparisonRate":1,"maxNumericDrift":0,"meanLatencyMs":7218},
+      {"scenarioId":"baseline-0036","family":"equipment","scenarioVariant":"contradiction","completedRepeats":5,"expectedRepeats":5,"exactAcrossCompleted":true,"exactComparisonRate":1,"maxNumericDrift":0,"meanLatencyMs":10901.4},
+      {"scenarioId":"baseline-0046","family":"combat","scenarioVariant":"contradiction","completedRepeats":5,"expectedRepeats":5,"exactAcrossCompleted":true,"exactComparisonRate":1,"maxNumericDrift":0,"meanLatencyMs":12352.7},
+      {"scenarioId":"baseline-0056","family":"runtime","scenarioVariant":"contradiction","completedRepeats":5,"expectedRepeats":5,"exactAcrossCompleted":true,"exactComparisonRate":1,"maxNumericDrift":0,"meanLatencyMs":9643.5},
+      {"scenarioId":"baseline-0066","family":"script","scenarioVariant":"contradiction","completedRepeats":5,"expectedRepeats":5,"exactAcrossCompleted":true,"exactComparisonRate":1,"maxNumericDrift":0,"meanLatencyMs":11797.3},
+      {"scenarioId":"baseline-0076","family":"economy","scenarioVariant":"contradiction","completedRepeats":5,"expectedRepeats":5,"exactAcrossCompleted":true,"exactComparisonRate":1,"maxNumericDrift":0,"meanLatencyMs":7663.4},
+      {"scenarioId":"baseline-0086","family":"social","scenarioVariant":"contradiction","completedRepeats":5,"expectedRepeats":5,"exactAcrossCompleted":true,"exactComparisonRate":1,"maxNumericDrift":0,"meanLatencyMs":6855.6},
+      {"scenarioId":"baseline-0096","family":"general","scenarioVariant":"contradiction","completedRepeats":5,"expectedRepeats":5,"exactAcrossCompleted":true,"exactComparisonRate":1,"maxNumericDrift":0,"meanLatencyMs":6589.9}
+    ]
+  },
+  "authority": {"mockOnly":true,"inferenceOnly":true,"grantsAuthority":false,"grantsExecutionPermission":false,"mayTrainOnline":false}
+}

@@ -1,0 +1,57 @@
+{
+  "schema": "kol-watersheep/baseline-report-v1",
+  "baselineId": "KOL-WS-BASELINE-001",
+  "status": "COMPLETE",
+  "generatedAt": "2026-10-11T07:29:29.148Z",
+  "endpoint": "http://127.0.0.1:8766/v1/decisions",
+  "seed": 20261011,
+  "corpus": {
+    "scenarios": 100,
+    "corpusHash": "576518b009966097d39d64eb880e8ec427f855ad51d9a31ecf8489caba2ee567",
+    "questionSetHash": "63c5e9f7c74eca0debd23fcfb6d494ff51944073ade33dcb6d513f57955300de",
+    "families": ["combat","economy","effects","equipment","general","inventory","quest","runtime","script","social"],
+    "variants": ["clean","compound","contradiction","instruction-like","irrelevant-noise","missing-context","recent-transition","resource-pressure","stale-property","unknown-entity"]
+  },
+  "summary": {
+    "totalRows": 100,
+    "successfulRows": 100,
+    "failedRows": 0,
+    "modelIds": ["watersheep-20260928-125452"],
+    "metrics": {
+      "domainAccuracy": 0.12,
+      "contextMicroPrecision": 0.9,
+      "contextMicroRecall": 0.5204,
+      "contextMicroF1": 0.6595,
+      "reasoningDepthAccuracy": 0.3,
+      "reasoningDepthUncertainRate": 0.86,
+      "anomalyAccuracy": 0.73,
+      "anomalyBrier": 0.190146,
+      "meanLatencyMs": 5837.4
+    }
+  },
+  "byFamily": {
+    "combat":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0.2,"contextMicroPrecision":0.8125,"contextMicroRecall":0.52,"contextMicroF1":0.6341,"reasoningDepthAccuracy":0.3,"reasoningDepthUncertainRate":0.8,"anomalyAccuracy":0.8,"anomalyBrier":0.111956,"meanLatencyMs":6480.1}},
+    "economy":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0,"contextMicroPrecision":1,"contextMicroRecall":0.4286,"contextMicroF1":0.6,"reasoningDepthAccuracy":0.3,"reasoningDepthUncertainRate":0.8,"anomalyAccuracy":0.6,"anomalyBrier":0.238692,"meanLatencyMs":5364.9}},
+    "effects":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0,"contextMicroPrecision":0.9375,"contextMicroRecall":0.5,"contextMicroF1":0.6522,"reasoningDepthAccuracy":0.3,"reasoningDepthUncertainRate":0.9,"anomalyAccuracy":0.8,"anomalyBrier":0.156103,"meanLatencyMs":5001.5}},
+    "equipment":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0,"contextMicroPrecision":0.9375,"contextMicroRecall":0.6,"contextMicroF1":0.7317,"reasoningDepthAccuracy":0.3,"reasoningDepthUncertainRate":0.9,"anomalyAccuracy":0.7,"anomalyBrier":0.239356,"meanLatencyMs":8313.1}},
+    "general":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0,"contextMicroPrecision":0.7647,"contextMicroRecall":0.8125,"contextMicroF1":0.7879,"reasoningDepthAccuracy":0.3,"reasoningDepthUncertainRate":0.9,"anomalyAccuracy":0.8,"anomalyBrier":0.154644,"meanLatencyMs":5744.3}},
+    "inventory":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0,"contextMicroPrecision":0.9167,"contextMicroRecall":0.44,"contextMicroF1":0.5946,"reasoningDepthAccuracy":0.3,"reasoningDepthUncertainRate":0.9,"anomalyAccuracy":0.7,"anomalyBrier":0.199193,"meanLatencyMs":7203.6}},
+    "quest":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0,"contextMicroPrecision":0.8889,"contextMicroRecall":0.6857,"contextMicroF1":0.7742,"reasoningDepthAccuracy":0.3,"reasoningDepthUncertainRate":0.9,"anomalyAccuracy":0.7,"anomalyBrier":0.200765,"meanLatencyMs":4849.3}},
+    "runtime":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":1,"contextMicroPrecision":0.9286,"contextMicroRecall":0.4194,"contextMicroF1":0.5778,"reasoningDepthAccuracy":0.3,"reasoningDepthUncertainRate":0.8,"anomalyAccuracy":0.7,"anomalyBrier":0.221849,"meanLatencyMs":4485.8}},
+    "script":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0,"contextMicroPrecision":0.9524,"contextMicroRecall":0.4878,"contextMicroF1":0.6452,"reasoningDepthAccuracy":0.3,"reasoningDepthUncertainRate":0.9,"anomalyAccuracy":0.7,"anomalyBrier":0.209932,"meanLatencyMs":4762.7}},
+    "social":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0,"contextMicroPrecision":0.875,"contextMicroRecall":0.4516,"contextMicroF1":0.5957,"reasoningDepthAccuracy":0.3,"reasoningDepthUncertainRate":0.8,"anomalyAccuracy":0.8,"anomalyBrier":0.168974,"meanLatencyMs":6169.3}}
+  },
+  "byVariant": {
+    "clean":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0.1,"contextMicroPrecision":0.9333,"contextMicroRecall":0.5385,"contextMicroF1":0.6829,"reasoningDepthAccuracy":0,"reasoningDepthUncertainRate":1,"anomalyAccuracy":1,"anomalyBrier":0.036775,"meanLatencyMs":4995.2}},
+    "compound":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0.1,"contextMicroPrecision":1,"contextMicroRecall":0.5,"contextMicroF1":0.6667,"reasoningDepthAccuracy":0,"reasoningDepthUncertainRate":0,"anomalyAccuracy":1,"anomalyBrier":0.008976,"meanLatencyMs":5933.3}},
+    "contradiction":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0.1,"contextMicroPrecision":0.6667,"contextMicroRecall":0.3125,"contextMicroF1":0.4255,"reasoningDepthAccuracy":0,"reasoningDepthUncertainRate":1,"anomalyAccuracy":1,"anomalyBrier":0.046721,"meanLatencyMs":6064.2}},
+    "instruction-like":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0.1,"contextMicroPrecision":1,"contextMicroRecall":0.4615,"contextMicroF1":0.6316,"reasoningDepthAccuracy":1,"reasoningDepthUncertainRate":1,"anomalyAccuracy":1,"anomalyBrier":0.008669,"meanLatencyMs":7103.9}},
+    "irrelevant-noise":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0.1,"contextMicroPrecision":0.6957,"contextMicroRecall":0.6154,"contextMicroF1":0.6531,"reasoningDepthAccuracy":0,"reasoningDepthUncertainRate":1,"anomalyAccuracy":0.4,"anomalyBrier":0.303597,"meanLatencyMs":6087.9}},
+    "missing-context":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0.1,"contextMicroPrecision":0.8462,"contextMicroRecall":0.3438,"contextMicroF1":0.4889,"reasoningDepthAccuracy":1,"reasoningDepthUncertainRate":1,"anomalyAccuracy":0,"anomalyBrier":0.752703,"meanLatencyMs":4889.8}},
+    "recent-transition":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0.2,"contextMicroPrecision":1,"contextMicroRecall":0.6563,"contextMicroF1":0.7925,"reasoningDepthAccuracy":0,"reasoningDepthUncertainRate":1,"anomalyAccuracy":1,"anomalyBrier":0.014791,"meanLatencyMs":5909.7}},
+    "resource-pressure":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0.1,"contextMicroPrecision":0.8824,"contextMicroRecall":0.5769,"contextMicroF1":0.6977,"reasoningDepthAccuracy":0,"reasoningDepthUncertainRate":0.6,"anomalyAccuracy":1,"anomalyBrier":0.024437,"meanLatencyMs":5723.3}},
+    "stale-property":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0.1,"contextMicroPrecision":1,"contextMicroRecall":0.6875,"contextMicroF1":0.8148,"reasoningDepthAccuracy":0,"reasoningDepthUncertainRate":1,"anomalyAccuracy":0,"anomalyBrier":0.617181,"meanLatencyMs":6271.8}},
+    "unknown-entity":{"totalRows":10,"successfulRows":10,"failedRows":0,"modelIds":["watersheep-20260928-125452"],"metrics":{"domainAccuracy":0.2,"contextMicroPrecision":1,"contextMicroRecall":0.5333,"contextMicroF1":0.6957,"reasoningDepthAccuracy":1,"reasoningDepthUncertainRate":1,"anomalyAccuracy":0.9,"anomalyBrier":0.087614,"meanLatencyMs":5395.4}}
+  },
+  "authority": {"grantsAuthority":false,"grantsExecutionPermission":false,"mayTrainOnline":false,"mayUpdateQTable":false}
+}

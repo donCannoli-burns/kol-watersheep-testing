@@ -1,0 +1,82 @@
+{
+  "schema": "kol-watersheep/baseline-analysis-summary-v1",
+  "baselineId": "KOL-WS-BASELINE-001",
+  "sourceResultsSha256": "a44134e0ff638655586aeb6ac99e8885583092ae55e3e6b06bfebc670643eb40",
+  "sourceManifestSha256": "8621c667832bae4b6b37f20b67952c785ec09cf465816181bc34d25297c297ea",
+  "sourceFullAnalysisSha256": "ed9c6b46ab1f267798a2a43d78d532d4778dadc9a33a7426ef83f4e2aee3f8b0",
+  "domainPredictionDistribution": {
+    "runtime": 98,
+    "combat": 2
+  },
+  "reasoningDepthPredictionDistribution": {
+    "uncertain": 86,
+    "moderate": 14
+  },
+  "anomalyECE": 0.224052,
+  "anomalousPairs": {
+    "pairs": 60,
+    "directionalAccuracy": 0.85,
+    "margin05Accuracy": 0.7667,
+    "margin10Accuracy": 0.75,
+    "meanDelta": 0.384672,
+    "medianDelta": 0.4429
+  },
+  "benignPairs": {
+    "pairs": 30,
+    "meanDelta": -0.053417,
+    "medianDelta": -0.0339,
+    "meanAbsDelta": 0.06321
+  },
+  "anomalousVariantIncreaseCounts": {
+    "contradiction": {
+      "increased": 10,
+      "total": 10
+    },
+    "instruction-like": {
+      "increased": 10,
+      "total": 10
+    },
+    "irrelevant-noise": {
+      "increased": 10,
+      "total": 10
+    },
+    "unknown-entity": {
+      "increased": 10,
+      "total": 10
+    },
+    "missing-context": {
+      "increased": 4,
+      "total": 10
+    },
+    "stale-property": {
+      "increased": 7,
+      "total": 10
+    }
+  },
+  "contextLabels": {
+    "market_data": {
+      "precision": 1,
+      "recall": 1,
+      "support": 10
+    },
+    "live_state": {
+      "precision": 1,
+      "recall": 0.65
+    },
+    "quest_reference": {
+      "precision": 1,
+      "recall": 0.7
+    },
+    "player_memory": {
+      "recall": 0
+    },
+    "script_docs": {
+      "recall": 0
+    },
+    "source_analysis": {
+      "precision": 0.2,
+      "recall": 0.1
+    }
+  },
+  "note": "Condensed publication summary of the locally generated full analysis artifact; hashes above bind it to the frozen source evidence."
+}
