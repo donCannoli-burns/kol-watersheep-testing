@@ -8,6 +8,8 @@ This repository is intentionally narrow. It does **not** emulate all of Kingdom 
 
 > **Current status:** two frozen experiments are published here: `KOL-WS-BASELINE-001` and `KOL-WS-REPEAT-001`. The option-order suite is implemented but has not yet been published as a completed result.
 
+> **Experimental branch:** `experiment/interaction-curriculum-v2` adds a new balanced KoL automation-interaction curriculum inspired by behavioral patterns in autoscend and Loopstar. It adds **56 core / 112 full** deterministic scenarios across seven control outcomes without modifying the frozen baseline. See [`docs/INTERACTION_CURRICULUM.md`](docs/INTERACTION_CURRICULUM.md).
+
 ## Why this exists
 
 [WaterSheep][watersheep] describes itself as a decision model that returns calibrated answers for yes/no, choice, score, and multi-label questions. This repo asks a more domain-specific question: **what happens when that kind of small local model is used as a System-1-style assessor over KoL/KoLmafia-shaped evidence?** [1]
