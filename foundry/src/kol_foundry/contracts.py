@@ -83,6 +83,7 @@ class FoundryTransition:
     experiment_id: str
     world_sha256: str
     runtime: dict[str, Any]
+    context: dict[str, Any]
     state: dict[str, Any]
     runtime_probe: dict[str, Any]
     student: dict[str, Any] | None
