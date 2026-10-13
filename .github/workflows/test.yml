@@ -13,5 +13,6 @@ jobs:
         with:
           node-version: 22
       - run: npm install
+      - run: bash -n run-kol-mock-lab
       - run: npm test
       - run: npm run smoke
