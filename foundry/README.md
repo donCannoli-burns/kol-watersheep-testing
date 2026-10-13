@@ -34,6 +34,38 @@ teacher adapter       WaterGoat
 
 The SQLite store owns **sessions, runs, and ordered events**. It does not own KoL state and it cannot authorize an action. The pymafia host is the execution worker. This mirrors the useful server/session/execution separation of OpenCode without making OpenCode a dependency of the experiment.
 
+## Existing KoL context planes
+
+The foundry reuses two existing local-first projects rather than inventing a second memory/context taxonomy.
+
+`kol-goblin-docs` is the optional **KoLmafia-local context witness**. Its generated `data/kol-goblin-docs/runtime.tsv` remains observation/context only. The foundry records the full file hash for provenance, exposes only a safe allowlist of version/gameday/install/authority fields, and redacts `player`, `player_id`, `loginScript`, and `logoutScript` from ordinary transition evidence.
+
+`kol-html-matrix` is the optional **retrieval/planning reference plane**. The foundry verifies `source-manifest.json` hashes before admitting the plane, then carries only compact evidence such as matrix identity, authority invariants, workflow IDs, runtime-node IDs, and stable `mem://` pointers. In particular, the matrix already defines:
+
+```text
+runtime:vector      VEKTOR Browser Retrieval Plane
+runtime:graph       GraphCore Agent Route Runtime
+runtime:nanoclock   NanoClock Scheduler Mirror
+runtime:learning    Adaptive Retrieval Overlay
+
+wf-state            live-state inspection
+wf-pymafia          embedded KoLmafia/pymafia development
+wf-verify           post-mutation verification
+```
+
+Those planes are never promoted to execution authority. This preserves their own invariant that observation/reference material does not authorize mutation.
+
+Optional inputs are explicit rather than auto-discovered from a live KoLmafia home:
+
+```bash
+./run-kol-foundry smoke \
+  --goblin-runtime ~/.kolmafia/data/kol-goblin-docs/runtime.tsv \
+  --html-matrix-root ~/.kolmafia/data/html-matrix \
+  --skip-watergoat
+```
+
+For a fully isolated simulator, point these arguments at the **isolated foundry KoLmafia home**, not the user's live account home.
+
 ## Current boundary
 
 Implemented in this slice:
@@ -51,7 +83,8 @@ Implemented in this slice:
 - explicit non-authority fields in every transition;
 - `GenericRequest.sessionId = null` enforced before/after host operations;
 - preference file writes disabled for the synthetic user;
-- one deterministic fixture and Python unit tests.
+- one deterministic fixture and Python unit tests;
+- optional, integrity-checked Goblin Docs + HTML Matrix context witnesses.
 
 Not implemented yet:
 
@@ -133,6 +166,7 @@ A successful smoke proves only:
 
 ```text
 synthetic JSON
+    + optional Goblin Docs / HTML Matrix witnesses
     ↓
 durable foundry session
     ↓
