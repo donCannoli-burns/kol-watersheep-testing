@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 from typing import Any
 
+from .context import ContextPlaneError
 from .contracts import WorldState
 from .pymafia_host import FoundryBlocked
 from .service import FoundryService, SmokeRequest
@@ -26,6 +27,12 @@ def _write_json(path: Path | None, value: dict[str, Any]) -> None:
     path.write_text(text, encoding="utf-8")
 
 
+def _optional_path(raw: str | None) -> Path | None:
+    if raw is None or not raw.strip():
+        return None
+    return Path(raw).expanduser().resolve()
+
+
 def smoke(args: argparse.Namespace) -> int:
     world = _load_world(args.world)
     session_id = args.session_id or ("ses_" + world.canonical_sha256()[:16])
@@ -42,6 +49,8 @@ def smoke(args: argparse.Namespace) -> int:
                 watergoat_url=args.watergoat_url,
                 watergoat_timeout=args.timeout,
                 query_student=not args.skip_watergoat,
+                goblin_runtime=_optional_path(args.goblin_runtime),
+                html_matrix_root=_optional_path(args.html_matrix_root),
             )
         )
         _write_json(args.out, result)
@@ -99,6 +108,22 @@ def parser() -> argparse.ArgumentParser:
             "WATERSHEEP_URL", "http://127.0.0.1:8766/v1/decisions"
         ),
     )
+    s.add_argument(
+        "--goblin-runtime",
+        default=os.environ.get("KOL_FOUNDRY_GOBLIN_RUNTIME"),
+        help=(
+            "optional path to data/kol-goblin-docs/runtime.tsv; identity and "
+            "lifecycle-hook values are redacted from evidence"
+        ),
+    )
+    s.add_argument(
+        "--html-matrix-root",
+        default=os.environ.get("KOL_FOUNDRY_HTML_MATRIX_ROOT"),
+        help=(
+            "optional path to data/html-matrix; manifest hashes are verified "
+            "before the context plane is admitted"
+        ),
+    )
     s.add_argument("--timeout", type=float, default=30.0)
     s.add_argument("--skip-watergoat", action="store_true")
     s.add_argument("--experiment-id", default="KOLMAFIA-SIM-HOST-001")
@@ -121,6 +146,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         return int(args.func(args))
     except (
+        ContextPlaneError,
         FoundryBlocked,
         watergoat.WaterGoatBlocked,
         StoreConflict,
