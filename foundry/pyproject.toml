@@ -1,0 +1,18 @@
+[project]
+name = "kol-foundry-sim-host"
+version = "0.1.0"
+description = "Bounded offline KoLmafia/pymafia host for KoL WaterSheep foundry experiments."
+requires-python = ">=3.10,<3.12"
+dependencies = [
+  "pymafia @ git+https://github.com/MrFizzyBubbs/pymafia.git@f346a55d050bf52901424ad6f2c7f01ef4fbc468"
+]
+
+[project.scripts]
+kol-foundry = "kol_foundry.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
