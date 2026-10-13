@@ -473,13 +473,22 @@ function baseState(pairId: string, family: string, seed: number): WorldState {
 
 function diffPaths(a: unknown, b: unknown, prefix = ""): string[] {
   if (Object.is(a, b)) return [];
+
+  if (Array.isArray(a) || Array.isArray(b)) {
+    if (!Array.isArray(a) || !Array.isArray(b)) return [prefix || "<root>"];
+    if (a.length !== b.length) return [prefix || "<root>"];
+    return a.flatMap((value, index) =>
+      diffPaths(value, b[index], `${prefix}[${index}]`)
+    );
+  }
+
   if (
     a === null || b === null ||
-    typeof a !== "object" || typeof b !== "object" ||
-    Array.isArray(a) || Array.isArray(b)
+    typeof a !== "object" || typeof b !== "object"
   ) {
     return [prefix || "<root>"];
   }
+
   const ao = a as Record<string, unknown>;
   const bo = b as Record<string, unknown>;
   const keys = [...new Set([...Object.keys(ao), ...Object.keys(bo)])].sort();
