@@ -5,6 +5,8 @@ import {
   MINPAIR_QUESTIONS,
   createMinPair,
   minPairCorpusHash,
+  minPairModelObservation,
+  MINPAIR_MODEL_PROJECTION,
 } from "./minpair-scenarios.ts";
 import { projectObservation } from "./observation.ts";
 import {
@@ -237,7 +239,7 @@ function pairSummary(rows: MinPairRow[], selectedIds: string[]) {
 }
 
 async function main() {
-  const evalId = process.env.EVAL_ID || "KOL-WS-MINPAIR-001";
+  const evalId = process.env.EVAL_ID || "KOL-WS-MINPAIR-002";
   const seed = Number(process.env.MINPAIR_SEED || 20261013);
   const familyFilter = csv("MINPAIR_FAMILIES");
   const targetFilter = csv("MINPAIR_TARGETS");
@@ -253,6 +255,7 @@ async function main() {
     ids,
     definitions: ids.map((id) => MINPAIR_DEFINITIONS[id]),
     questions: MINPAIR_QUESTIONS,
+    modelProjection: MINPAIR_MODEL_PROJECTION,
   });
 
   const paths = ensureMutableRun(process.env.EVAL_DIR || `./data/evals/${evalId}`);
@@ -292,7 +295,8 @@ async function main() {
       const state = side === "base" ? pair.base : pair.variant;
       const observation = projectObservation(state);
       const expectedAction = side === "base" ? def.baseExpectedAction : def.variantExpectedAction;
-      const response = await classifyWithWaterSheepQuestions(observation, MINPAIR_QUESTIONS);
+      const modelInput = minPairModelObservation(observation);
+      const response = await classifyWithWaterSheepQuestions(modelInput, MINPAIR_QUESTIONS);
       const p = parse(response);
       const row: MinPairRow = {
         schema: "kol-watersheep/minpair-result-v1",
@@ -354,6 +358,19 @@ async function main() {
       );
     }
 
+    const pairRows = readJsonl<MinPairRow>(paths.resultsPath);
+    const pairReport = pairSummary(pairRows, [pairId]).pairs[0] as any;
+    if (pairReport?.complete) {
+      const transition = pairReport.winnerTransitionCorrect ? "OK" : "MISS";
+      const targetDelta =
+        typeof pairReport.targetDelta === "number" ? pairReport.targetDelta.toFixed(4) : "?";
+      const marginDelta =
+        typeof pairReport.marginDelta === "number" ? pairReport.marginDelta.toFixed(4) : "?";
+      console.log(
+        `         pair ${transition} targetΔ=${targetDelta} marginΔ=${marginDelta} oneFact=${pairReport.exactOneFact ? "yes" : "NO"}`,
+      );
+    }
+
     writeJson(paths.checkpointPath, {
       schema: "kol-watersheep/minpair-report-v1",
       evalId,
@@ -378,6 +395,7 @@ async function main() {
     seed,
     corpusHash: minPairCorpusHash(),
     selectionHash,
+    modelProjection: MINPAIR_MODEL_PROJECTION,
     selectedPairIds: ids,
     summary: pairSummary(rows, ids),
     authority: {
