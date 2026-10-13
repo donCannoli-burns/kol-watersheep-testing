@@ -6,8 +6,10 @@ import os
 from pathlib import Path
 from typing import Any
 
-from .contracts import FoundryTransition, WorldState
-from .pymafia_host import FoundryBlocked, PyMafiaHost, RuntimeConfig
+from .contracts import WorldState
+from .pymafia_host import FoundryBlocked
+from .service import FoundryService, SmokeRequest
+from .store import FoundryStore, StoreConflict
 from . import watergoat
 
 
@@ -26,63 +28,54 @@ def _write_json(path: Path | None, value: dict[str, Any]) -> None:
 
 def smoke(args: argparse.Namespace) -> int:
     world = _load_world(args.world)
-    host = PyMafiaHost(
-        RuntimeConfig(
-            revision=args.revision,
-            root=args.kolmafia_root.expanduser().resolve(),
+    session_id = args.session_id or ("ses_" + world.canonical_sha256()[:16])
+    store = FoundryStore(args.db.expanduser().resolve())
+    try:
+        service = FoundryService(store)
+        result = service.smoke(
+            SmokeRequest(
+                experiment_id=args.experiment_id,
+                session_id=session_id,
+                world=world,
+                revision=args.revision,
+                kolmafia_root=args.kolmafia_root.expanduser().resolve(),
+                watergoat_url=args.watergoat_url,
+                watergoat_timeout=args.timeout,
+                query_student=not args.skip_watergoat,
+            )
         )
-    )
-    host.start()
-    host.load_world(world)
+        _write_json(args.out, result)
+        return 0
+    finally:
+        store.close()
 
-    frame = host.state_frame()
-    probe = {
-        "expression": "my_adventures()",
-        "output": host.probe_ash("my_adventures()"),
-    }
 
-    student = None
-    if not args.skip_watergoat:
-        student = watergoat.query(
-            frame,
-            world.candidates,
-            endpoint=args.watergoat_url,
-            timeout_seconds=args.timeout,
-        )
-
-    transition = FoundryTransition(
-        schema="kol-foundry/transition-v0.1",
-        experiment_id=args.experiment_id,
-        world_sha256=world.canonical_sha256(),
-        runtime={
-            "host": "pymafia-jpype",
-            "kolmafiaRevision": args.revision,
-            "pymafiaPin": "f346a55d050bf52901424ad6f2c7f01ef4fbc468",
-            "mode": "OFFLINE_NO_SESSION",
-        },
-        state=frame,
-        runtime_probe=probe,
-        student=student,
-        teacher={
-            "status": "NOT_WIRED",
-            "reason": "InstantSCCS teacher extraction is the next bounded milestone.",
-        },
-        authority={
-            "studentMayExecute": False,
-            "teacherMayExecute": False,
-            "liveFallbackAllowed": False,
-            "authenticatedSessionAllowed": False,
-        },
-    )
-    _write_json(args.out, transition.to_dict())
-    return 0
+def export_session(args: argparse.Namespace) -> int:
+    store = FoundryStore(args.db.expanduser().resolve())
+    try:
+        _write_json(args.out, store.export_session(args.session_id))
+        return 0
+    finally:
+        store.close()
 
 
 def parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(description="Offline KoLmafia WaterSheep foundry host")
+    p = argparse.ArgumentParser(
+        description="Offline KoLmafia WaterSheep foundry control plane"
+    )
+    p.add_argument(
+        "--db",
+        type=Path,
+        default=Path(
+            os.environ.get("KOL_FOUNDRY_DB", ".foundry/state/foundry.sqlite3")
+        ),
+        help="durable session/run/event store",
+    )
     sub = p.add_subparsers(dest="command", required=True)
 
-    s = sub.add_parser("smoke", help="load one synthetic world and emit one transition")
+    s = sub.add_parser(
+        "smoke", help="load one synthetic world and emit one durable transition"
+    )
     s.add_argument(
         "--world",
         type=Path,
@@ -91,7 +84,9 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument(
         "--kolmafia-root",
         type=Path,
-        default=Path(os.environ.get("KOL_FOUNDRY_KOLMAFIA_ROOT", ".foundry/kolmafia")),
+        default=Path(
+            os.environ.get("KOL_FOUNDRY_KOLMAFIA_ROOT", ".foundry/kolmafia")
+        ),
     )
     s.add_argument(
         "--revision",
@@ -107,8 +102,17 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--timeout", type=float, default=30.0)
     s.add_argument("--skip-watergoat", action="store_true")
     s.add_argument("--experiment-id", default="KOLMAFIA-SIM-HOST-001")
+    s.add_argument("--session-id")
     s.add_argument("--out", type=Path)
     s.set_defaults(func=smoke)
+
+    e = sub.add_parser(
+        "export-session", help="export a durable foundry session and its event stream"
+    )
+    e.add_argument("session_id")
+    e.add_argument("--out", type=Path)
+    e.set_defaults(func=export_session)
+
     return p
 
 
@@ -116,7 +120,12 @@ def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     try:
         return int(args.func(args))
-    except (FoundryBlocked, watergoat.WaterGoatBlocked) as exc:
+    except (
+        FoundryBlocked,
+        watergoat.WaterGoatBlocked,
+        StoreConflict,
+        KeyError,
+    ) as exc:
         print(f"BLOCKED: {exc}")
         return 2
 
