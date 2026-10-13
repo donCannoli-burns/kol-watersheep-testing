@@ -83,7 +83,7 @@ This is an **inference-only mock lab**. WaterSheep does not execute KoL actions,
 
 ### 1. `KOL-WS-BASELINE-001`
 
-The first frozen run completed all **100/100 final scenarios successfully** against model ID `watersheep-20260928-125452`. The complete machine-readable report is the [`baseline manifest`](data/baselines/KOL-WS-BASELINE-001/manifest.json), with all raw per-scenario rows preserved in the [`results/` parts](data/baselines/KOL-WS-BASELINE-001/results/). Concatenating the numbered parts reproduces the original `results.jsonl` byte-for-byte. [4]
+The first frozen run completed all **100/100 final scenarios successfully** against model ID `watersheep-20260928-125452`. The public aggregate report is the [`baseline manifest`](data/baselines/KOL-WS-BASELINE-001/manifest.json); preserved transient collection failures are in [`failures.jsonl`](data/baselines/KOL-WS-BASELINE-001/failures.jsonl). The SHA-256 of the original completed local `results.jsonl` is published in [`data/EVIDENCE_HASHES.txt`](data/EVIDENCE_HASHES.txt). [4]
 
 | Metric | Result |
 |---|---:|
@@ -97,7 +97,7 @@ The first frozen run completed all **100/100 final scenarios successfully** agai
 | Anomaly Brier score | **0.190146** |
 | Mean request latency | **5837.4 ms** |
 
-The main baseline failure mode is easy to see in the derived analysis: the model predicted `runtime` for **98/100** domain questions and `combat` for the other 2. In other words, the 12% domain accuracy is not a subtle miss; the current domain prompt/label formulation has a strong `runtime` attractor. The corresponding reasoning-depth output also collapses heavily toward `uncertain` (**86/100**). See the frozen [`baseline analysis`](data/analyses/KOL-WS-BASELINE-001-analysis-v1.json). [5]
+The main baseline failure mode is easy to see in the derived analysis: the model predicted `runtime` for **98/100** domain questions and `combat` for the other 2. In other words, the 12% domain accuracy is not a subtle miss; the current domain prompt/label formulation has a strong `runtime` attractor. The corresponding reasoning-depth output also collapses heavily toward `uncertain` (**86/100**). See the publication [`baseline analysis summary`](data/analyses/KOL-WS-BASELINE-001-analysis-summary.json), which records the SHA-256 of the full local analysis artifact and the source results it was derived from. [5]
 
 The anomaly signal is more promising. When each family is paired against its own clean case, anomalous perturbations moved the anomaly probability upward in **85%** of the 60 anomalous pairs, with mean delta **+0.384672**. Contradiction, instruction-like contamination, irrelevant noise, and unknown-entity variants moved upward in **10/10 families each**. Missing-context was much weaker: only **4/10** families moved upward. Benign perturbations averaged **-0.053417** relative to their clean pair. [5]
 
@@ -109,7 +109,7 @@ Context selection is asymmetric as well. Overall precision is high, but recall i
 
 The final corpus contains 100 successful rows, but collection was not magically failure-free. Two aborted attempts for `baseline-0047` were appended to [`failures.jsonl`](data/baselines/KOL-WS-BASELINE-001/failures.jsonl) before the scenario later completed successfully. They are intentionally published rather than removed from provenance. [4]
 
-Baseline evidence hashes:
+Original completed-run source-artifact hashes:
 
 ```text
 results.jsonl  a44134e0ff638655586aeb6ac99e8885583092ae55e3e6b06bfebc670643eb40
@@ -117,11 +117,11 @@ manifest.json  8621c667832bae4b6b37f20b67952c785ec09cf465816181bc34d25297c297ea
 analysis-v1    ed9c6b46ab1f267798a2a43d78d532d4778dadc9a33a7426ef83f4e2aee3f8b0
 ```
 
-The analysis itself records and verifies the baseline results/manifest SHA-256 values and confirms the corpus hash and question-set hash still match the current deterministic generator. [5]
+Those hashes identify the original local completed-run artifacts. The GitHub publication manifest is normalized JSON and is **not** claimed byte-identical to the source manifest. The analysis summary records the source hashes and the corpus/question-set hashes used for provenance. [5]
 
 ### 2. `KOL-WS-REPEAT-001`
 
-The repeatability suite selected the 10 contradiction scenarios — one from each family — and sent the **identical observation and identical four-question request five times each**: 50 inference calls total. The complete report is in the [`repeat manifest`](data/evals/KOL-WS-REPEAT-001/manifest.json), with raw rows preserved in the [`results/` parts](data/evals/KOL-WS-REPEAT-001/results/). Concatenating the numbered parts reproduces the original `results.jsonl` byte-for-byte. [6]
+The repeatability suite selected the 10 contradiction scenarios — one from each family — and sent the **identical observation and identical four-question request five times each**: 50 inference calls total. The public aggregate report is the [`repeat manifest`](data/evals/KOL-WS-REPEAT-001/manifest.json); the SHA-256 of the original completed local `results.jsonl` is preserved in [`data/EVIDENCE_HASHES.txt`](data/EVIDENCE_HASHES.txt). [6]
 
 | Metric | Result |
 |---|---:|
@@ -135,27 +135,14 @@ The repeatability suite selected the 10 contradiction scenarios — one from eac
 
 So, within the scope of this experiment, WaterSheep showed **perfect observed repeatability**: every compared answer object matched across identical repeats, with zero observed numeric probability drift. This is intentionally a scoped claim about these 10 scenarios and this model checkpoint, not a claim of universal determinism. [6]
 
-Repeat evidence hashes:
+Original repeat source-artifact hashes:
 
 ```text
 results.jsonl  b606017aa7ec25ce2fc02ccd8907928c01f76bc4fb0e8da0dda1d28d18ec6a37
 manifest.json  8fe436338e875cd5f897f50224e9b670c65a3f8dc4a27c1f13d0b7e9934fe1a8
 ```
 
-### Reconstruct and verify the frozen JSONL evidence
-
-The raw result rows are split into 10-row text parts only to keep the GitHub evidence easy to browse and upload. Reconstruct the exact original byte streams and verify the published SHA-256 values with:
-
-```bash
-./scripts/reconstruct-evidence.sh
-```
-
-Expected hashes:
-
-```text
-KOL-WS-BASELINE-001  a44134e0ff638655586aeb6ac99e8885583092ae55e3e6b06bfebc670643eb40
-KOL-WS-REPEAT-001    b606017aa7ec25ce2fc02ccd8907928c01f76bc4fb0e8da0dda1d28d18ec6a37
-```
+As with the baseline, these are hashes of the original completed local artifacts. The first public import mirrors the aggregate report and provenance hashes; it does not claim that the normalized GitHub JSON has the same byte hash.
 
 ## What the current evidence supports
 
@@ -189,21 +176,18 @@ Requirements:
 - Node.js 20+
 - a local WaterSheep service for inference suites
 
-The compiled `dist/` runtime is committed so you do not need a TypeScript toolchain merely to reproduce the shipped tests.
+The public repo runs directly from TypeScript source using `tsx`.
 
 ```bash
 git clone https://github.com/donCannoli-burns/kol-watersheep-testing.git
 cd kol-watersheep-testing
+npm install
 
 ./run-kol-mock-lab test
 ./run-kol-mock-lab smoke
 ```
 
-Run the analysis over the already-published frozen baseline without making a new model call:
-
-```bash
-./run-kol-mock-lab watersheep-baseline-analysis
-```
+The repository includes the no-inference analysis source and a published condensed analysis summary. Re-running that analysis requires the original row-level `results.jsonl`; the first public import publishes its SHA-256 and aggregate evidence rather than mirroring the full raw row corpus.
 
 For new inference runs, start WaterSheep separately and point the harness at it:
 
@@ -223,17 +207,17 @@ Completed manifests are treated as immutable. New checkpoint, model, prompt word
 ## Repository layout
 
 ```text
-src/                         TypeScript source
-dist/                        committed runnable JS + tests
+src/                         TypeScript runtime + eval source
 tests/                       source tests
 docs/                        architecture/provenance notes
 data/
   baselines/
-    KOL-WS-BASELINE-001/     frozen baseline rows + manifest + failures
-  analyses/                  derived no-inference analysis
+    KOL-WS-BASELINE-001/     aggregate manifest + preserved failures
+  analyses/                  publication analysis summary
   evals/
-    KOL-WS-REPEAT-001/       frozen repeatability rows + manifest
-run-kol-mock-lab             standalone launcher
+    KOL-WS-REPEAT-001/       aggregate repeatability manifest
+  EVIDENCE_HASHES.txt        hashes of original completed-run artifacts
+run-kol-mock-lab             source launcher
 ```
 
 ## References / citations
@@ -241,9 +225,9 @@ run-kol-mock-lab             standalone launcher
 1. **WaterSheep** — original open-weight decision model. The upstream repository describes it as returning calibrated answers to yes/no, choice, score, and multi-label questions and is licensed Apache-2.0: [SamratDuttaOfficial/WaterSheep][watersheep].
 2. **KoLmafia** — the desktop client whose state vocabulary and runtime shape inform parts of this synthetic test surface: [kolmafia/kolmafia][kolmafia].
 3. **kolmafia-mock** — related TypeScript KoLmafia mocking work: [loathers/kolmafia-mock][kolmafia-mock].
-4. **`KOL-WS-BASELINE-001` evidence** — [`manifest.json`](data/baselines/KOL-WS-BASELINE-001/manifest.json), [`results/`](data/baselines/KOL-WS-BASELINE-001/results/), and [`failures.jsonl`](data/baselines/KOL-WS-BASELINE-001/failures.jsonl).
-5. **Baseline derived analysis** — [`KOL-WS-BASELINE-001-analysis-v1.json`](data/analyses/KOL-WS-BASELINE-001-analysis-v1.json).
-6. **`KOL-WS-REPEAT-001` evidence** — [`manifest.json`](data/evals/KOL-WS-REPEAT-001/manifest.json) and [`results/`](data/evals/KOL-WS-REPEAT-001/results/).
+4. **`KOL-WS-BASELINE-001` evidence** — [`manifest.json`](data/baselines/KOL-WS-BASELINE-001/manifest.json), [`failures.jsonl`](data/baselines/KOL-WS-BASELINE-001/failures.jsonl), and [`EVIDENCE_HASHES.txt`](data/EVIDENCE_HASHES.txt).
+5. **Baseline derived analysis** — [`KOL-WS-BASELINE-001-analysis-summary.json`](data/analyses/KOL-WS-BASELINE-001-analysis-summary.json).
+6. **`KOL-WS-REPEAT-001` evidence** — [`manifest.json`](data/evals/KOL-WS-REPEAT-001/manifest.json) and [`EVIDENCE_HASHES.txt`](data/EVIDENCE_HASHES.txt).
 
 ## License
 
