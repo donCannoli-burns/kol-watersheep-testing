@@ -1,0 +1,142 @@
+{
+  "schema": "kol-watersheep/interaction-publication-summary-v1",
+  "evalId": "KOL-WS-INTERACTION-001",
+  "status": "COMPLETE",
+  "publicationBasis": "Aggregate reconstructed from the completed local run output reported by the experiment operator. Raw results.jsonl and original manifest bytes remain local and are not claimed byte-identical to this publication summary.",
+  "profile": "core",
+  "totalRows": 56,
+  "successfulRows": 56,
+  "failedRows": 0,
+  "selectedScenarios": 56,
+  "corpusSha256": "b5497229969312f8eb861d129949f96798d3a7c1eb25e76440a7648de0769f8a",
+  "selectionSha256": "59c7ec4d958bb2ae173e0309f089e2b80cdf14711a80026c650219a2ac20ff8c",
+  "metrics": {
+    "controlActionAccuracy": 0.6429,
+    "contextMicroPrecision": 0.6802,
+    "contextMicroRecall": 0.6291,
+    "contextMicroF1": 0.6537,
+    "blockAccuracy": 0.6607,
+    "blockBrier": 0.292735,
+    "meanLatencyMs": 5864.8
+  },
+  "expectedActionCounts": {
+    "need_context": 8,
+    "proceed": 8,
+    "reconcile": 8,
+    "reroute": 8,
+    "restore": 8,
+    "stop": 8,
+    "wait": 8
+  },
+  "predictedActionCounts": {
+    "need_context": 7,
+    "proceed": 12,
+    "reconcile": 11,
+    "reroute": 20,
+    "restore": 1,
+    "stop": 0,
+    "wait": 5
+  },
+  "confusion": {
+    "proceed": {
+      "proceed": 8,
+      "reroute": 0,
+      "restore": 0,
+      "wait": 0,
+      "reconcile": 0,
+      "stop": 0,
+      "need_context": 0
+    },
+    "reroute": {
+      "proceed": 0,
+      "reroute": 8,
+      "restore": 0,
+      "wait": 0,
+      "reconcile": 0,
+      "stop": 0,
+      "need_context": 0
+    },
+    "restore": {
+      "proceed": 0,
+      "reroute": 4,
+      "restore": 1,
+      "wait": 0,
+      "reconcile": 3,
+      "stop": 0,
+      "need_context": 0
+    },
+    "wait": {
+      "proceed": 3,
+      "reroute": 0,
+      "restore": 0,
+      "wait": 5,
+      "reconcile": 0,
+      "stop": 0,
+      "need_context": 0
+    },
+    "reconcile": {
+      "proceed": 1,
+      "reroute": 0,
+      "restore": 0,
+      "wait": 0,
+      "reconcile": 7,
+      "stop": 0,
+      "need_context": 0
+    },
+    "stop": {
+      "proceed": 0,
+      "reroute": 8,
+      "restore": 0,
+      "wait": 0,
+      "reconcile": 0,
+      "stop": 0,
+      "need_context": 0
+    },
+    "need_context": {
+      "proceed": 0,
+      "reroute": 0,
+      "restore": 0,
+      "wait": 0,
+      "reconcile": 1,
+      "stop": 0,
+      "need_context": 7
+    }
+  },
+  "byExpectedAction": {
+    "need_context": {
+      "rows": 8,
+      "accuracy": 0.875,
+      "meanBlockProbability": 0.12165
+    },
+    "proceed": {
+      "rows": 8,
+      "accuracy": 1,
+      "meanBlockProbability": 0.079013
+    },
+    "reconcile": {
+      "rows": 8,
+      "accuracy": 0.875,
+      "meanBlockProbability": 0.236413
+    },
+    "reroute": {
+      "rows": 8,
+      "accuracy": 1,
+      "meanBlockProbability": 0.590988
+    },
+    "restore": {
+      "rows": 8,
+      "accuracy": 0.125,
+      "meanBlockProbability": 0.6099
+    },
+    "stop": {
+      "rows": 8,
+      "accuracy": 0,
+      "meanBlockProbability": 0.622012
+    },
+    "wait": {
+      "rows": 8,
+      "accuracy": 0.625,
+      "meanBlockProbability": 0.693162
+    }
+  }
+}

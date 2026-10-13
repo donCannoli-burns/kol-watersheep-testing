@@ -1,0 +1,107 @@
+{
+  "schema": "kol-watersheep/interaction-publication-summary-v1",
+  "evalId": "KOL-WS-INTERACTION-STATE-001",
+  "status": "COMPLETE",
+  "publicationBasis": "Aggregate reconstructed from the completed local run output reported by the experiment operator. Raw results.jsonl and original manifest bytes remain local and are not claimed byte-identical to this publication summary.",
+  "profile": "core-action-slice",
+  "totalRows": 16,
+  "successfulRows": 16,
+  "failedRows": 0,
+  "selectedScenarios": 16,
+  "corpusSha256": "b5497229969312f8eb861d129949f96798d3a7c1eb25e76440a7648de0769f8a",
+  "selectionSha256": "05c27c4db4b9b51c9bb3e2f693dccb1f4044e57c2b09da9730150fa8ee12ef7d",
+  "metrics": {
+    "controlActionAccuracy": 0.875,
+    "contextMicroPrecision": 0.7358,
+    "contextMicroRecall": 0.629,
+    "contextMicroF1": 0.6783,
+    "blockAccuracy": 0.125,
+    "blockBrier": 0.702337,
+    "meanLatencyMs": 5284.6
+  },
+  "expectedActionCounts": {
+    "need_context": 8,
+    "reconcile": 8
+  },
+  "predictedActionCounts": {
+    "need_context": 7,
+    "reconcile": 8
+  },
+  "confusion": {
+    "proceed": {
+      "proceed": 0,
+      "reroute": 0,
+      "restore": 0,
+      "wait": 0,
+      "reconcile": 0,
+      "stop": 0,
+      "need_context": 0
+    },
+    "reroute": {
+      "proceed": 0,
+      "reroute": 0,
+      "restore": 0,
+      "wait": 0,
+      "reconcile": 0,
+      "stop": 0,
+      "need_context": 0
+    },
+    "restore": {
+      "proceed": 0,
+      "reroute": 0,
+      "restore": 0,
+      "wait": 0,
+      "reconcile": 0,
+      "stop": 0,
+      "need_context": 0
+    },
+    "wait": {
+      "proceed": 0,
+      "reroute": 0,
+      "restore": 0,
+      "wait": 0,
+      "reconcile": 0,
+      "stop": 0,
+      "need_context": 0
+    },
+    "reconcile": {
+      "proceed": 1,
+      "reroute": 0,
+      "restore": 0,
+      "wait": 0,
+      "reconcile": 7,
+      "stop": 0,
+      "need_context": 0
+    },
+    "stop": {
+      "proceed": 0,
+      "reroute": 0,
+      "restore": 0,
+      "wait": 0,
+      "reconcile": 0,
+      "stop": 0,
+      "need_context": 0
+    },
+    "need_context": {
+      "proceed": 0,
+      "reroute": 0,
+      "restore": 0,
+      "wait": 0,
+      "reconcile": 1,
+      "stop": 0,
+      "need_context": 7
+    }
+  },
+  "byExpectedAction": {
+    "need_context": {
+      "rows": 8,
+      "accuracy": 0.875,
+      "meanBlockProbability": 0.12165
+    },
+    "reconcile": {
+      "rows": 8,
+      "accuracy": 0.875,
+      "meanBlockProbability": 0.236413
+    }
+  }
+}
