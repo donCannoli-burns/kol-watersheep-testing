@@ -2,6 +2,8 @@
 
 A small, deterministic **KoL/KoLmafia-shaped mock environment, recorder, and evaluation harness** for testing [WaterSheep][watersheep] locally.
 
+> **Upstream model:** [SamratDuttaOfficial/WaterSheep][watersheep]. This repository is only a KoL-specific test rig; it does not replace or rebrand WaterSheep. If this experiment is useful to you, please star the original project too.
+
 This repository is intentionally narrow. It does **not** emulate all of Kingdom of Loathing or KoLmafia, does not connect to live KoL, and should never receive live credentials or session material. The point is to create controlled, replayable decision problems that look enough like KoL/KoLmafia state to measure a small decision model without risking a live account.
 
 > **Current status:** two frozen experiments are published here: `KOL-WS-BASELINE-001` and `KOL-WS-REPEAT-001`. The option-order suite is implemented but has not yet been published as a completed result.
