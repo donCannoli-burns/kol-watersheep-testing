@@ -569,3 +569,14 @@ export function minPairCorpusHash(): string {
     };
   }));
 }
+
+
+export const MINPAIR_MODEL_PROJECTION = "minpair-v2-redacted-derived-hashes";
+
+export function minPairModelObservation(observation: Observation): Observation {
+  return {
+    ...observation,
+    stateDigest: "MINPAIR_REDACTED",
+    observationId: "MINPAIR_REDACTED",
+  };
+}
