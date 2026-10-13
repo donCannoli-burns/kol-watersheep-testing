@@ -1,5 +1,7 @@
 # KOL-WS-MINPAIR-001
 
+> **Derived-hash correction:** the first 25-pair local pilot used the original observation projection, where the one factual mutation also changed the derived `stateDigest` and `observationId` strings sent to WaterSheep. Those two opaque hashes are now replaced with fixed `MINPAIR_REDACTED` values for model input. The pilot should not be mixed with the corrected run. Use a fresh `EVAL_ID`, recommended `KOL-WS-MINPAIR-002`.
+
 `KOL-WS-MINPAIR-001` is a **500-observation / 250-pair** directional benchmark built in response to the interaction-curriculum results.
 
 ## Why minimal pairs
@@ -146,7 +148,7 @@ Run 25 pairs (50 observations) at a time:
 export WATERSHEEP_URL=http://127.0.0.1:8766/v1/decisions
 
 MINPAIR_MAX_NEW_PAIRS=25 \
-EVAL_ID=KOL-WS-MINPAIR-001 \
+EVAL_ID=KOL-WS-MINPAIR-002 \
 ./run-kol-mock-lab watersheep-minpair
 ```
 
@@ -155,7 +157,7 @@ Run the same command repeatedly. It resumes from the existing JSONL until all 25
 Or run the whole suite in one invocation:
 
 ```bash
-EVAL_ID=KOL-WS-MINPAIR-001 \
+EVAL_ID=KOL-WS-MINPAIR-002 \
 ./run-kol-mock-lab watersheep-minpair
 ```
 
