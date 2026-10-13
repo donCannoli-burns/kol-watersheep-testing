@@ -1,19 +1,20 @@
 {
-  "name": "kol-mock-runtime-lab",
+  "name": "kol-watersheep-testing",
   "version": "0.3.0",
   "private": true,
   "type": "module",
-  "description": "Deterministic mock KoL/KoLmafia runtime for KOL-WaterSheep routing experiments.",
+  "description": "Deterministic KoL/KoLmafia-shaped mock runtime and WaterSheep evaluation harness.",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json --noCheck",
-    "start": "node dist/src/server.js",
-    "test": "node --test dist/tests/*.test.js",
-    "smoke": "node dist/src/smoke.js",
-    "watersheep-smoke": "node dist/src/watersheep-smoke.js",
-    "watersheep-baseline": "node dist/src/watersheep-baseline.js",
-    "watersheep-baseline-analysis": "node dist/src/watersheep-baseline-analysis.js",
-    "watersheep-order": "node dist/src/watersheep-order.js",
-    "watersheep-repeat": "node dist/src/watersheep-repeat.js"
+    "test": "node --import tsx --test tests/*.test.ts",
+    "start": "tsx src/server.ts",
+    "smoke": "tsx src/smoke.ts",
+    "watersheep-baseline": "tsx src/watersheep-baseline.ts",
+    "watersheep-baseline-analysis": "tsx src/watersheep-baseline-analysis.ts",
+    "watersheep-order": "tsx src/watersheep-order.ts",
+    "watersheep-repeat": "tsx src/watersheep-repeat.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0"
   },
   "engines": {
     "node": ">=20"

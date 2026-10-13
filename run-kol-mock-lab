@@ -3,28 +3,26 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MODE="${1:-start}"
 
-if ! command -v node >/dev/null 2>&1; then
-  echo "BLOCKED: Node.js is required for the offline mock lab." >&2
+if ! command -v node >/dev/null 2>&1 || ! command -v npm >/dev/null 2>&1; then
+  echo "BLOCKED: Node.js 20+ and npm are required." >&2
   exit 2
 fi
-
-if [[ ! -f "$HERE/dist/src/server.js" ]]; then
-  echo "BLOCKED: compiled runtime is missing under $HERE/dist." >&2
+if [[ ! -x "$HERE/node_modules/.bin/tsx" ]]; then
+  echo "BLOCKED: dependencies are not installed. Run: npm install" >&2
   exit 2
 fi
 
 cd "$HERE"
 case "$MODE" in
-  test) exec node --test "$HERE"/dist/tests/*.test.js ;;
-  smoke) exec node "$HERE/dist/src/smoke.js" ;;
-  watersheep-smoke) exec node "$HERE/dist/src/watersheep-smoke.js" ;;
-  watersheep-baseline) exec node "$HERE/dist/src/watersheep-baseline.js" ;;
-  watersheep-baseline-analysis) exec node "$HERE/dist/src/watersheep-baseline-analysis.js" ;;
-  watersheep-order) exec node "$HERE/dist/src/watersheep-order.js" ;;
-  watersheep-repeat) exec node "$HERE/dist/src/watersheep-repeat.js" ;;
-  start) exec node "$HERE/dist/src/server.js" ;;
+  test) exec npm test --silent ;;
+  smoke) exec npm run smoke --silent ;;
+  watersheep-baseline) exec npm run watersheep-baseline --silent ;;
+  watersheep-baseline-analysis) exec npm run watersheep-baseline-analysis --silent ;;
+  watersheep-order) exec npm run watersheep-order --silent ;;
+  watersheep-repeat) exec npm run watersheep-repeat --silent ;;
+  start) exec npm run start --silent ;;
   *)
-    echo "usage: $0 [test|smoke|watersheep-smoke|watersheep-baseline|watersheep-baseline-analysis|watersheep-order|watersheep-repeat|start]" >&2
+    echo "usage: $0 [test|smoke|watersheep-baseline|watersheep-baseline-analysis|watersheep-order|watersheep-repeat|start]" >&2
     exit 2
     ;;
 esac
